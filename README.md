@@ -1,62 +1,33 @@
-# Agentic AI Demos for Scientific Research
+# Agentic AI for Scientific Research
 
-Autonomous AI agent systems for drug discovery, clinical data analysis, and scientific literature research. Built with LangChain/LangGraph, demonstrating multi-agent architectures with tool use, memory systems, and RAG pipelines.
+Multi-agent AI systems for drug discovery, clinical data analysis, and scientific literature research. These are working prototypes exploring how autonomous agents can accelerate computational chemistry workflows.
 
-## Demos
+## Projects
 
-### 1. Drug Discovery Agent (`drug_discovery_agent/`)
-A LangGraph multi-agent system that:
-- Searches PubChem for molecular properties and bioactivity data
-- Queries scientific literature via Semantic Scholar API
-- Runs molecular property predictions using MACE ML potentials
-- Generates structured research reports with citations
+### Drug Discovery Agent
+A LangGraph multi-agent system that queries PubChem for molecular properties, searches literature via Semantic Scholar, runs property predictions with MACE potentials, and synthesizes findings into structured reports. The architecture separates planning, tool execution, and synthesis into distinct agents with shared memory.
 
-### 2. Clinical Data Agent (`clinical_data_agent/`)
-RAG-powered agent for clinical trial data analysis:
-- Ingests clinical trial protocols and results (PDF/structured data)
-- Answers questions about trial design, endpoints, and outcomes
-- Compares across trials using vector similarity search
-- Generates summary reports for stakeholders
+### Clinical Data Agent
+RAG pipeline for clinical trial data. Ingests protocols and results as PDFs, builds a vector store with chemical-aware chunking, and answers structured queries about trial design, endpoints, and outcomes. Designed for the kind of cross-trial comparison work common in pharmaceutical R&D.
 
-### 3. Molecular Literature RAG (`molecular_rag/`)
-Retrieval-augmented generation for computational chemistry papers:
-- PDF ingestion with chemical-aware parsing
-- Vector store with molecular structure embeddings
-- Question answering grounded in source papers
-- BibTeX generation from retrieved sources
+### Molecular Literature RAG
+Retrieval-augmented generation over a computational chemistry paper library. Chemical formula-aware parsing, molecular structure embeddings alongside text embeddings, and grounded Q&A with source attribution and BibTeX generation.
 
 ## Architecture
 
 ```
-User Query → Planning Agent → Tool Selection
-                ↓
-    ┌───────────┼───────────┐
-    ↓           ↓           ↓
-  PubChem    Literature   ML Model
-  Agent      Agent        Agent
-    ↓           ↓           ↓
-    └───────────┼───────────┘
-                ↓
-        Synthesis Agent → Report
+Query → Planning Agent → Tool Selection
+            ↓
+  ┌─────────┼─────────┐
+  ↓         ↓         ↓
+PubChem  Literature  ML Model
+Agent    Agent       Agent
+  ↓         ↓         ↓
+  └─────────┼─────────┘
+            ↓
+    Synthesis Agent → Report
 ```
 
-## Tech Stack
+## Stack
 
-- **Orchestration**: LangGraph (stateful multi-agent graphs)
-- **LLM**: Claude (Anthropic API) / Ollama (local, GPU-accelerated)
-- **Vector DB**: ChromaDB
-- **ML**: MACE neural network potentials, ASE
-- **APIs**: PubChem PUG REST, Semantic Scholar, CrossRef
-
-## Setup
-
-```bash
-pip install langchain langgraph langchain-anthropic chromadb
-pip install mace-torch ase  # for molecular predictions
-export ANTHROPIC_API_KEY=your_key
-```
-
-## Related
-
-- [molecular-ml-pipeline](https://github.com/albdprice/molecular-ml-pipeline) — MACE training pipeline
-- [adaptive-ml-potentials](https://github.com/albdprice/adaptive-ml-potentials) — Physics-informed ML
+LangGraph for orchestration, Claude/Ollama for generation, ChromaDB for vector storage, MACE for molecular predictions, PubChem/Semantic Scholar/CrossRef APIs for data retrieval.
